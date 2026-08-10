@@ -1,3 +1,18 @@
+# Dependencies
+node_modules/
 
+# Build output
+dist/
+
+# OS files
 .DS_Store
-node_modules
+Thumbs.db
+
+# Vite cache
+.vite/
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo

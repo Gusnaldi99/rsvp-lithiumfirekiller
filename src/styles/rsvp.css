@@ -31,9 +31,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px 20px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 /* ============================
@@ -171,6 +171,7 @@ body::before {
     max-width: 500px;
     position: relative;
     z-index: 1;
+    margin: auto;
 }
 
 .glass-panel {

@@ -207,6 +207,14 @@ header {
     gap: 20px;
 }
 
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 .header-content h1 {
     font-size: 1.8rem;
     font-weight: 700;
@@ -284,14 +292,8 @@ header {
 /* Layout Grid */
 .main-grid {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 1fr;
     gap: 24px;
-}
-
-@media (max-width: 900px) {
-    .main-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 .left-column {
@@ -499,10 +501,21 @@ textarea::placeholder {
 
 .search-input {
     width: 200px !important;
+    flex-grow: 1;
 }
 
 .filter-select {
     width: auto !important;
+    flex-grow: 1;
+}
+
+@media (max-width: 640px) {
+    .search-input, .filter-select {
+        width: 100% !important;
+    }
+    .table-actions .btn {
+        flex-grow: 1;
+    }
 }
 
 .table-responsive {

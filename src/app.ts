@@ -146,8 +146,8 @@ function init(): void {
     });
 
     // Event Listeners
-    formSingle.addEventListener('submit', handleAddSingle);
-    formBulk.addEventListener('submit', handleAddBulk);
+    if (formSingle) formSingle.addEventListener('submit', handleAddSingle);
+    if (formBulk) formBulk.addEventListener('submit', handleAddBulk);
     searchInput.addEventListener('input', renderTable);
     filterStatus.addEventListener('change', renderTable);
     btnExport.addEventListener('click', exportCSV);
@@ -370,7 +370,6 @@ function renderTable(): void {
 
             tr.innerHTML = `
                 <td><strong>${c.nama}</strong></td>
-                <td>${c.nohp}</td>
                 <td>
                     <select class="table-select ${selectClass}" onchange="updateStatusHadir('${c.id}', this.value)">
                         <option value="belum" ${c.statusHadir === 'belum' ? 'selected' : ''}>Belum Konfirmasi</option>
@@ -413,19 +412,18 @@ function exportCSV(): void {
         return;
     }
 
-    let csvContent = 'data:text/csv;charset=utf-8,';
-    // Header
-    csvContent += 'Nama,No HP,Status Kehadiran,Jumlah Orang\n';
+    let csvContent = 'Nama,Status Kehadiran,Jumlah Orang\n';
 
     // Rows
     contactsData.forEach((c) => {
-        const row = `"${c.nama}","${c.nohp}","${c.statusHadir}","${c.jumlahOrang || 0}"`;
+        const row = `"${c.nama}","${c.statusHadir}","${c.jumlahOrang || 0}"`;
         csvContent += row + '\n';
     });
 
-    const encodedUri = encodeURI(csvContent);
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
+    link.setAttribute('href', url);
     link.setAttribute(
         'download',
         `Data_Kontak_${new Date().toISOString().split('T')[0]}.csv`
@@ -433,6 +431,7 @@ function exportCSV(): void {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
 }
 
 // Start app
